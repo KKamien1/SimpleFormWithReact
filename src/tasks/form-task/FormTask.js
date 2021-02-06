@@ -30,7 +30,7 @@ export const FormTask = () => {
             <div>
                 <div style={{ display: 'flex' }}>
                     <div style={{ width: 'calc(50% - 1px)', height: 435, borderRight: '1px solid grey', padding: 10 }}>
-                        <FormTaskComplete />
+                        <FormTaskComplete dateFormat='DD-MM-YYYY' />
                     </div>
                     <div style={{ width: '50%', height: 435, padding: 10 }}>
                         <img src={img} alt="" style={{ maxWidth: '100%' }} />
