@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 
 import { formTaskValidator } from '../utils/validator'
 import InputField from '../components/InputField'
+import CheckBox from '../components/CheckBox'
 
 export class FormTaskComplete extends Component {
     constructor(props) {
@@ -22,18 +23,14 @@ export class FormTaskComplete extends Component {
     }
 
     onChangeHandler = ({ target }) => {
-        const { name, value, required } = target;
-        console.log('target', target, name, value, required);
+        const { name, value } = target;
         this.setState({ [name]: value })
-        const isValid = this.validate[name](target);
-        if (isValid === true) {
-            console.log('should be valid only', isValid);
-            this.setState({ [name]: value })
+        const validationResult = this.validate[name](target);
+        if (validationResult === true) {
             this.setState((prevState) => ({ errors: { ...prevState.errors, [name]: [] } }))
         } else {
-            this.setState((prevState) => ({ errors: { ...prevState.errors, [name]: isValid } }))
+            this.setState((prevState) => ({ errors: { ...prevState.errors, [name]: validationResult } }))
         }
-        console.log(isValid);
     }
 
     onBlurHandler = ({ target: { name } }) => {
@@ -61,7 +58,7 @@ export class FormTaskComplete extends Component {
                             errors={errors["username"]}
                             required
                         >
-                            First Name:
+                            First Name
                         </InputField>
 
                         <InputField
@@ -73,9 +70,8 @@ export class FormTaskComplete extends Component {
                             errors={errors["lastname"]}
                             required
                         >
-                            Last Name:
+                            Last Name
                         </InputField>
-
                         <InputField
                             name="birthday"
                             value={birthday}
@@ -84,26 +80,24 @@ export class FormTaskComplete extends Component {
                             touched={touched["birthday"]}
                             errors={errors["birthday"]}
                             placeholder={this.props.dateFormat}
-                            required
                         >
-                            Birthday:
+                            Birthday
                         </InputField>
+
                     </fieldset>
 
                     <fieldset>
                         <legend>User Management</legend>
 
-                        <InputField
+                        <CheckBox
                             name="usertype"
-                            value={usertype ? 'Active' : 'Inactive'}
+                            value={usertype}
+                            options={['Active', 'Inactive']}
                             onChange={this.onChangeHandler}
-                            onBlur={this.onBlurHandler}
-                            touched={touched["usertype"]}
-                            errors={errors["usertype"]}
-                            type='checkbox'
+                            checked={true}
                         >
-                            User Type:
-                        </InputField>
+                            User Type
+                        </CheckBox>
 
                         <InputField
                             name="inactivityDate"
@@ -113,8 +107,9 @@ export class FormTaskComplete extends Component {
                             touched={touched["inactivityDate"]}
                             errors={errors["inactivityDate"]}
                             placeholder={this.props.dateFormat}
+                            required={usertype === 'Inactive' ? true : false}
                         >
-                            User Inactivity Date:
+                            User Inactivity Date
                         </InputField>
                     </fieldset>
                     <button>Save</button>

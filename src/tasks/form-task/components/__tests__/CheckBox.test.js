@@ -1,17 +1,15 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import InputField from '../InputField'
+import CheckBox from '../CheckBox'
 
-describe('InputField component', () => {
+describe('CheckBox component', () => {
     test('should match to snapshot', () => {
-        const component = shallow(<InputField />);
+        const component = shallow(<CheckBox />);
         expect(component.html()).toMatchSnapshot();
     })
     test('should display asterisk when field is required', () => {
-        const component = shallow(<InputField required />);
+        const component = shallow(<CheckBox required />);
         expect(component.find('.form__asterisk').length).toEqual(1);
     })
-
-
 })

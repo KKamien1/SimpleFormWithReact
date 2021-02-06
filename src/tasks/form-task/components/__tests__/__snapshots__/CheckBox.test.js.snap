@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CheckBox component should match to snapshot 1`] = `"<div class=\\"form__input-field\\"><label><input type=\\"checkbox\\"/><span></span></label></div>"`;
