@@ -97,7 +97,7 @@ export const date = (format) => ({ value, required = false }) => {
     return errors.length ? errors : true;
 }
 
-export const userType = ({ value }) => true;
+export const usertype = () => true;
 
 
 
@@ -111,7 +111,7 @@ export const userType = ({ value }) => true;
 export const formTaskValidator = ({ dateFormat }) => ({
     username,
     lastname,
-    userType,
+    usertype,
     birthday: date(dateFormat),
     inactivityDate: date(dateFormat)
 })
