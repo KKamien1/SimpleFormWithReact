@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 // import PropTypes from 'prop-types'
 
 import { formTaskValidator } from '../utils/validator'
-import ErrorMessage from '../components/ErrorMessage'
 import InputField from '../components/InputField'
 
 export class FormTaskComplete extends Component {
@@ -60,9 +59,11 @@ export class FormTaskComplete extends Component {
                             onBlur={this.onBlurHandler}
                             touched={touched["username"]}
                             errors={errors["username"]}
-                            required>
+                            required
+                        >
                             First Name:
                         </InputField>
+
                         <InputField
                             name="lastname"
                             value={lastname}
@@ -70,9 +71,11 @@ export class FormTaskComplete extends Component {
                             onBlur={this.onBlurHandler}
                             touched={touched["lastname"]}
                             errors={errors["lastname"]}
-                            required>
+                            required
+                        >
                             Last Name:
                         </InputField>
+
                         <InputField
                             name="birthday"
                             value={birthday}
@@ -80,23 +83,28 @@ export class FormTaskComplete extends Component {
                             onBlur={this.onBlurHandler}
                             touched={touched["birthday"]}
                             errors={errors["birthday"]}
-                            required>
+                            placeholder={this.props.dateFormat}
+                            required
+                        >
                             Birthday:
                         </InputField>
                     </fieldset>
 
                     <fieldset>
                         <legend>User Management</legend>
+
                         <InputField
                             name="usertype"
-                            value={usertype ? 'active' : 'inactive'}
+                            value={usertype ? 'Active' : 'Inactive'}
                             onChange={this.onChangeHandler}
                             onBlur={this.onBlurHandler}
                             touched={touched["usertype"]}
                             errors={errors["usertype"]}
-                            required>
+                            type='checkbox'
+                        >
                             User Type:
                         </InputField>
+
                         <InputField
                             name="inactivityDate"
                             value={inactivityDate}
@@ -104,7 +112,8 @@ export class FormTaskComplete extends Component {
                             onBlur={this.onBlurHandler}
                             touched={touched["inactivityDate"]}
                             errors={errors["inactivityDate"]}
-                            required>
+                            placeholder={this.props.dateFormat}
+                        >
                             User Inactivity Date:
                         </InputField>
                     </fieldset>
