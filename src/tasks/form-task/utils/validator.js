@@ -7,7 +7,7 @@ export const username = ({ value, required = false }) => {
     const [min, max] = [2, 20];
     const pattern = /^[a-z]+$/i;
 
-    // sample conditions for name field value
+    // sample conditions for field value
     if (required && value.length === 0) {
         errors.push('This field is required');
     }
@@ -32,7 +32,7 @@ export const lastname = ({ value, required = false }) => {
     const [min, max] = [2, 40];
     const pattern = /^[a-z-]+$/i;
 
-    // sample conditions for name field value
+    // sample conditions for field value
     if (required && value.length === 0) {
         errors.push('This field is required');
     }
@@ -67,7 +67,7 @@ export const date = (format) => ({ value, required = false }) => {
         default: pattern = /^(\d{4})-(\d{2})-(\d{2})$/i; break;
     }
 
-    // sample conditions for name field value
+    // sample conditions for field value
 
     if (!pattern.test(value)) {
         errors.push(`Date should be in format ${format}`);

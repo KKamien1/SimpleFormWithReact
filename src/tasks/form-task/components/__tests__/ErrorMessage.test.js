@@ -3,14 +3,22 @@ import { shallow } from 'enzyme';
 
 import ErrorMessage from '../ErrorMessage'
 
+const defaultProps = {
+    errors: []
+}
+
+const createShallowComponent = (props = {}) => {
+    const testProps = { ...defaultProps, ...props }
+    return shallow(<ErrorMessage {...testProps} />)
+}
+
 describe('ErrorMessage component', () => {
-    test('should match to snapshot', () => {
-        const component = shallow(<ErrorMessage errors={['Test message']} />);
-        expect(component.html()).toMatchSnapshot();
-    })
-    test('should return null if there is no message', () => {
-        const component = shallow(<ErrorMessage errors={[]} />);
+    test('should return null if there is no errors', () => {
+        const component = createShallowComponent();
         expect(component.html()).toBe(null);
     })
-
+    test('should match to snapshot', () => {
+        const component = createShallowComponent({ errors: ['Test message'] });
+        expect(component.html()).toMatchSnapshot();
+    })
 })

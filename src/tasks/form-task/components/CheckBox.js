@@ -1,7 +1,15 @@
 
 import React from 'react';
 
-export default function CheckBox({ name, value, required, children, options = [true, false], checked, onChange }) {
+export default function CheckBox({
+    name,
+    value,
+    required,
+    children,
+    options = [true, false],
+    checked,
+    onChange }) {
+
     const [yes, no] = options;
 
     const onChangeHandler = (e) => {

@@ -2,11 +2,16 @@
 import React from 'react';
 import ErrorMessage from './ErrorMessage'
 
-export default function InputField({ name, value, type = 'text', required, children, onChange, onBlur, touched, placeholder, checked = false, errors }) {
-
-    if (type === 'checkbox') {
-        value = checked ? 'Active' : 'Inactive';
-    }
+export default function InputField({
+    name,
+    value,
+    required,
+    children,
+    onChange,
+    onBlur,
+    touched,
+    placeholder,
+    errors }) {
 
     return (
         <div className="form__input-field">
@@ -18,12 +23,10 @@ export default function InputField({ name, value, type = 'text', required, child
                     value={value}
                     onChange={onChange}
                     onBlur={onBlur}
-                    type={type}
+                    type='text'
                     required={required}
                     placeholder={placeholder}
-                    defaultChecked={checked}
                 />
-                {type === 'checkbox' ? <span>{value}</span> : null}
                 {touched && <ErrorMessage errors={errors} />}
             </label>
         </div>
