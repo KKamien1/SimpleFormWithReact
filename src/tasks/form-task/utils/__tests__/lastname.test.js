@@ -6,33 +6,36 @@ describe('lastname validation', () => {
         const valueWithDigit = lastname({ value: 'fakeName7' });
         const valueWithDash = lastname({ value: 'fake-Name' });
 
-        expect(valueWithSpecialChar).not.toBe(true);
-        expect(valueWithDigit).not.toBe(true);
-        expect(valueWithDash).toBe(true);
+        expect(valueWithSpecialChar.isValid).toBe(false);
+        expect(valueWithDigit.isValid).toBe(false);
+        expect(valueWithDash.isValid).toBe(true);
 
-        expect(valueWithDigit[0]).toBe('Please use only letters or -');
+        expect(valueWithDigit.errors[0]).toBe('Please use only letters or -');
     });
 
     test('should be valid with `` if not required', () => {
         const empty = lastname({ value: '', required: false });
 
-        expect(empty).toBe(true);
+        expect(empty).toEqual({ isValid: true, errors: [] });
+    })
+    test('should be invalid with `` if required', () => {
+        const empty = lastname({ value: '', required: true });
+
+        expect(empty.isValid).toBe(false);
     })
 
     test('should be minimum 2 letters long', () => {
-        const empty = lastname({ value: '' });
         const oneLetter = lastname({ value: 'x' });
         const twoLetters = lastname({ value: 'xx' });
 
-        expect(empty).not.toBe(true);
-        expect(oneLetter).not.toBe(true);
-        expect(twoLetters).toBe(true);
+        expect(oneLetter.isValid).toBe(false);
+        expect(twoLetters.isValid).toBe(true);
     })
     test('should be maximum 40 letters long', () => {
         const long41 = lastname({ value: 'aaaaaxxxxxaaaaaxxxxxaaaaaxxxxxaaaaaxxxxxq' });
         const long40 = lastname({ value: 'aaaaaxxxxxaaaaaxxxxxaaaaaxxxxxaaaaaxxxxx' });
 
-        expect(long41).not.toBe(1);
-        expect(long40).toBe(true);
+        expect(long41.isValid).toBe(false);
+        expect(long40.isValid).toBe(true);
     })
 })

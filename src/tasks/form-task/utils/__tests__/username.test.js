@@ -6,34 +6,37 @@ describe('username validation', () => {
         const valueWithDigit = username({ value: 'fakeName7' });
         const valueWithDash = username({ value: 'fake-Name' });
 
-        expect(valueWithSpecialChar).not.toBe(true);
-        expect(valueWithDigit).not.toBe(true);
-        expect(valueWithDash).not.toBe(true);
+        expect(valueWithSpecialChar.isValid).toBe(false);
+        expect(valueWithDigit.isValid).toBe(false);
+        expect(valueWithDash.isValid).toBe(false);
 
-        expect(valueWithDash[0]).toBe('Please use only letters');
+        expect(valueWithDash.errors[0]).toBe('Please use only letters');
     });
 
     test('should be valid with `` if not required', () => {
         const empty = username({ value: '', required: false });
 
-        expect(empty).toBe(true);
+        expect(empty).toEqual({ isValid: true, errors: [] });
+    })
+    test('should be invalid with `` if required', () => {
+        const empty = username({ value: '', required: true });
+
+        expect(empty.isValid).toBe(false);
     })
     test('should be minimum 2 letters long', () => {
-        const empty = username({ value: '' });
         const oneLetter = username({ value: 'x' });
         const twoLetters = username({ value: 'xx' });
 
-        expect(empty).not.toBe(true);
-        expect(oneLetter).not.toBe(true);
-        expect(twoLetters).toBe(true);
+        expect(oneLetter.isValid).toBe(false);
+        expect(twoLetters.isValid).toBe(true);
     })
     test('should be maximum 20 letters long', () => {
         const long21 = username({ value: 'aaaaaxxxxxaaaaaxxxxxq' });
         const long41 = username({ value: 'aaaaaxxxxxaaaaaxxxxxaaaaaxxxxxaaaaaxxxxxq' });
         const long20 = username({ value: 'aaaaaxxxxxaaaaaxxxxx' });
 
-        expect(long21).not.toBe(true);
-        expect(long41).not.toBe(true);
-        expect(long20).toBe(true);
+        expect(long21.isValid).toBe(false);
+        expect(long41.isValid).toBe(false);
+        expect(long20.isValid).toBe(true);
     })
 })

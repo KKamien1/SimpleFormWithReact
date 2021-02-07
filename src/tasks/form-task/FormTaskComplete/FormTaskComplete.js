@@ -25,16 +25,24 @@ export class FormTaskComplete extends Component {
     onChangeHandler = ({ target }) => {
         const { name, value } = target;
         this.setState({ [name]: value })
-        const validationResult = this.validate[name](target);
-        if (validationResult === true) {
-            this.setState((prevState) => ({ errors: { ...prevState.errors, [name]: [] } }))
-        } else {
-            this.setState((prevState) => ({ errors: { ...prevState.errors, [name]: validationResult } }))
-        }
+        const { errors } = this.validate[name](target);
+        this.setState((prevState) => (
+            {
+                errors: { ...prevState.errors, [name]: errors }
+            }
+        ))
     }
 
-    onBlurHandler = ({ target: { name } }) => {
-        this.setState((prevState) => ({ touched: { ...prevState.touched, [name]: true } }))
+    onBlurHandler = ({ target }) => {
+        const { name } = target;
+        const { isValid, errors } = this.validate[name](target);
+        this.setState((prevState) => (
+            {
+                errors: { ...prevState.errors, [name]: errors },
+                touched: { ...prevState.touched, [name]: true }
+            }
+        ))
+
     }
 
     onSubmit = (event) => {

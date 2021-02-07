@@ -2,7 +2,7 @@ const [YYYY_MM_DD, DD_MM_YYYY, MM_DD_YYYY] = ['YYYY-MM-DD', 'DD-MM-YYYY', 'MM-DD
 
 export const dateFormats = [YYYY_MM_DD, DD_MM_YYYY, MM_DD_YYYY];
 
-export const username = ({ value, required = true }) => {
+export const username = ({ value, required = false }) => {
     const errors = [];
     const [min, max] = [2, 20];
     const pattern = /^[a-z]+$/i;
@@ -21,10 +21,13 @@ export const username = ({ value, required = true }) => {
         errors.length = 0;
     }
 
-    return errors.length ? errors : true;
+    return {
+        isValid: errors.length ? false : true,
+        errors
+    }
 }
 
-export const lastname = ({ value, required = true }) => {
+export const lastname = ({ value, required = false }) => {
     const errors = [];
     const [min, max] = [2, 40];
     const pattern = /^[a-z-]+$/i;
@@ -43,7 +46,10 @@ export const lastname = ({ value, required = true }) => {
         errors.length = 0;
     }
 
-    return errors.length ? errors : true;
+    return {
+        isValid: errors.length ? false : true,
+        errors
+    }
 }
 
 export const date = (format) => ({ value, required = false }) => {
@@ -94,10 +100,13 @@ export const date = (format) => ({ value, required = false }) => {
         errors.length = 0;
     }
 
-    return errors.length ? errors : true;
+    return {
+        isValid: errors.length ? false : true,
+        errors
+    }
 }
 
-export const usertype = () => true;
+export const usertype = () => ({ isValid: true, errors: [] })
 
 
 
