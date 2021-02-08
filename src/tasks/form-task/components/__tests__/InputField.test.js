@@ -4,16 +4,19 @@ import { shallow, mount } from 'enzyme';
 import InputField from '../InputField'
 
 const defaultProps = {
-    name: 'username',
-    value: '',
+    field: {
+        name: 'username',
+        value: '',
+        touched: false,
+        errors: []
+    },
     type: 'text',
     required: false,
     children: 'Username',
     onChange: () => { },
     onBlur: () => { },
-    touched: false,
     placeholder: 'enter text',
-    errors: []
+
 }
 
 const createShallowComponent = (props = {}) => {

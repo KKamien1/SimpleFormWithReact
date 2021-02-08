@@ -6,81 +6,122 @@ import { formTaskValidator } from '../utils/validator'
 import InputField from '../components/InputField'
 import CheckBox from '../components/CheckBox'
 
+const [username, lastname, birthday, usertype, inactivityDate] = ['username', 'lastname', 'birthday', 'usertype', 'inactivityDate']
 export class FormTaskComplete extends Component {
     constructor(props) {
         super(props);
         this.validate = formTaskValidator(this.props);
+        this.state = {
+            [username]: {
+                name: username,
+                value: '',
+                required: true,
+                touched: false,
+                errors: [],
+                isValid: false
+            },
+            [lastname]: {
+                name: lastname,
+                value: '',
+                required: true,
+                touched: false,
+                errors: [],
+                isValid: false
+            },
+            [birthday]: {
+                name: birthday,
+                value: '',
+                touched: false,
+                errors: [],
+                isValid: false
+            },
+            [usertype]: {
+                name: usertype,
+                value: '',
+                touched: false,
+                errors: [],
+                isValid: false
+            },
+            [inactivityDate]: {
+                name: inactivityDate,
+                value: '',
+                touched: false,
+                errors: [],
+                isValid: false,
+                required: false,
+            }
+        }
     }
 
-    state = {
-        username: '',
-        lastname: '',
-        birthday: '',
-        usertype: '',
-        inactivityDate: '',
-        touched: {},
-        errors: {}
+    componentDidMount() {
+        this.validateForm();
     }
+
+    isUserTypeInactive = () => this.state['usertype'].value === 'Inactive' ? true : false;
 
     onChangeHandler = ({ target }) => {
         const { name, value } = target;
-        this.setState({ [name]: value })
-        const { errors } = this.validate[name](target);
-
-        this.setState((prevState) => ({ errors: { ...prevState.errors, [name]: errors } }))
+        this.setInactivityDateRequired(name, value);
+        const { isValid, errors } = this.validate[name](target);
+        this.setState((prevState) => ({ [name]: { ...prevState[name], value, isValid, errors } }))
     }
 
-    onBlurHandler = ({ target }) => {
-        const { name } = target;
-        const { isValid, errors } = this.validate[name](target);
-        this.setState((prevState) => ({
-            errors: { ...prevState.errors, [name]: errors },
-            touched: { ...prevState.touched, [name]: true }
-        }))
+    onBlurHandler = ({ target: { name } }) => {
+        this.setState((prevState) => ({ [name]: { ...prevState[name], touched: true } }))
     }
 
     onSubmit = (event) => {
         event.preventDefault();
+        this.validateForm();
         console.log('submit');
     }
 
+    validateForm = () => {
+        for (const name in this.state) {
+            const { isValid, errors } = this.validate[name](this.state[name]);
+            this.setState((prevState) => ({ [name]: { ...prevState[name], errors, isValid } }))
+        }
+    }
+
+    isFormValid = () => {
+        return Object.values(this.state).every(field => field.isValid);
+    }
+
+    setInactivityDateRequired = (name, value) => {
+        if (name === usertype) {
+            const required = value === 'Inactive' ? true : false;
+            const { isValid, errors } = this.validate[inactivityDate]({ value: this.state[inactivityDate].value, required });
+            this.setState((prevState) => ({ [inactivityDate]: { ...prevState[inactivityDate], errors, isValid, required } }))
+        }
+    }
+
     render() {
-        const { username, lastname, birthday, usertype, inactivityDate, touched, errors } = this.state;
+        const { username, lastname, birthday, usertype, inactivityDate } = this.state;
+        const disableButton = !this.isFormValid();
         return (
             <>
-                <form className='form' onSubmit={this.onSubmit}>
+                <form className='form' onSubmit={this.onSubmit} noValidate>
                     <fieldset>
                         <legend>Personal Info</legend>
                         <InputField
-                            name="username"
-                            value={username}
+                            field={username}
                             onChange={this.onChangeHandler}
                             onBlur={this.onBlurHandler}
-                            touched={touched["username"]}
-                            errors={errors["username"]}
-                            required
                         >
                             First Name
                         </InputField>
 
                         <InputField
-                            name="lastname"
-                            value={lastname}
+                            field={lastname}
                             onChange={this.onChangeHandler}
                             onBlur={this.onBlurHandler}
-                            touched={touched["lastname"]}
-                            errors={errors["lastname"]}
-                            required
                         >
                             Last Name
                         </InputField>
                         <InputField
-                            name="birthday"
-                            value={birthday}
+                            field={birthday}
                             onChange={this.onChangeHandler}
                             onBlur={this.onBlurHandler}
-                            touched={touched["birthday"]}
-                            errors={errors["birthday"]}
                             placeholder={this.props.dateFormat}
                         >
                             Birthday
@@ -92,8 +133,7 @@ export class FormTaskComplete extends Component {
                         <legend>User Management</legend>
 
                         <CheckBox
-                            name="usertype"
-                            value={usertype}
+                            field={usertype}
                             options={['Active', 'Inactive']}
                             onChange={this.onChangeHandler}
                             checked={true}
@@ -102,19 +142,16 @@ export class FormTaskComplete extends Component {
                         </CheckBox>
 
                         <InputField
-                            name="inactivityDate"
-                            value={inactivityDate}
+                            field={inactivityDate}
                             onChange={this.onChangeHandler}
                             onBlur={this.onBlurHandler}
-                            touched={touched["inactivityDate"]}
-                            errors={errors["inactivityDate"]}
                             placeholder={this.props.dateFormat}
-                            required={usertype === 'Inactive' ? true : false}
+
                         >
                             User Inactivity Date
                         </InputField>
                     </fieldset>
-                    <button>Save</button>
+                    <button disabled={disableButton}>Save</button>
                 </form>
             </>
         );

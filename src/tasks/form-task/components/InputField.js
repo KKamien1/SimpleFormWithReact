@@ -3,15 +3,11 @@ import React from 'react';
 import ErrorMessage from './ErrorMessage'
 
 export default function InputField({
-    name,
-    value,
-    required,
+    field: { name, value, required, touched, errors },
     children,
     onChange,
     onBlur,
-    touched,
-    placeholder,
-    errors }) {
+    placeholder }) {
 
     return (
         <div className="form__input-field">
@@ -23,9 +19,9 @@ export default function InputField({
                     value={value}
                     onChange={onChange}
                     onBlur={onBlur}
-                    type='text'
                     required={required}
                     placeholder={placeholder}
+                    type='text'
                 />
                 {touched && <ErrorMessage errors={errors} />}
             </label>

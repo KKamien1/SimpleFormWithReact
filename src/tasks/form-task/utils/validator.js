@@ -2,7 +2,7 @@ const [YYYY_MM_DD, DD_MM_YYYY, MM_DD_YYYY] = ['YYYY-MM-DD', 'DD-MM-YYYY', 'MM-DD
 
 export const dateFormats = [YYYY_MM_DD, DD_MM_YYYY, MM_DD_YYYY];
 
-export const username = ({ value, required = false }) => {
+export const username = ({ value, required = true }) => {
     const errors = [];
     const [min, max] = [2, 20];
     const pattern = /^[a-z]+$/i;
@@ -27,7 +27,7 @@ export const username = ({ value, required = false }) => {
     }
 }
 
-export const lastname = ({ value, required = false }) => {
+export const lastname = ({ value, required = true }) => {
     const errors = [];
     const [min, max] = [2, 40];
     const pattern = /^[a-z-]+$/i;
@@ -107,13 +107,6 @@ export const date = (format) => ({ value, required = false }) => {
 }
 
 export const usertype = () => ({ isValid: true, errors: [] })
-
-
-
-
-
-
-
 
 // Combine relevant fields to form validator
 

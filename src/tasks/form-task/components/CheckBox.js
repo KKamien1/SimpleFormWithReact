@@ -2,9 +2,7 @@
 import React from 'react';
 
 export default function CheckBox({
-    name,
-    value,
-    required,
+    field: { name, value, required },
     children,
     options = [true, false],
     checked,
@@ -16,7 +14,6 @@ export default function CheckBox({
         e.target.value = e.target.checked ? yes : no;
         onChange(e)
     }
-
     return (
         <div className="form__input-field">
             <label htmlFor={name}>
