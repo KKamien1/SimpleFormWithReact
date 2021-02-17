@@ -1,0 +1,21 @@
+.form__fieldset {
+    display: flex;
+    flex-wrap: wrap;
+    padding: $gap;
+    &:focus-within {
+        background-color: $primaryMute;
+    }
+}
+.form__legend {
+    font-weight: bold;
+}
+.form__btn {
+    margin: $indent;
+    &:disabled {
+        background: $muted;
+    }
+    &--primary {
+        color: $bgColor;
+        background-color: $primaryColor;
+    }
+}

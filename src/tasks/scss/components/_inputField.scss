@@ -1,0 +1,33 @@
+
+.form__fieldbox {
+    padding: 2px 5px;
+    width: 50%;
+    @include mq($tablet) {
+        width: 100%;
+    }
+}
+
+.form__label {
+    padding: 0 0 0 $indent;
+}
+
+.form__input_text {
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+    padding: 3px 0 3px $indent;
+    border-radius: $radius;
+    font-size: smaller;
+    outline: none;
+    &--error {
+        border-color: $error;
+    }
+    &:focus {
+        box-shadow: $shadowLight;
+    }
+}
+
+.form__asterisk {
+    color: $error;
+    padding-left: 3px;
+}

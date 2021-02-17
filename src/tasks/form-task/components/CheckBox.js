@@ -15,11 +15,12 @@ export default function CheckBox({
         onChange(e)
     }
     return (
-        <div className="form__input-field">
-            <label htmlFor={name}>
+        <div className="form__fieldbox">
+            <label htmlFor={name} className="form__label">
                 {children}
                 {required ? <span className='form__asterisk'>*</span> : null}
                 <input
+                    className='form__input_checkbox'
                     name={name}
                     value={value}
                     onChange={onChangeHandler}

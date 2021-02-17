@@ -1,0 +1,55 @@
+
+//  COLORS PALLETTE
+
+$primaryColor : #1100ad
+$bgColor : #fff
+$primaryMute : darken($bgColor, 10)
+$textColor : #000
+$textColorLight: $bgColor
+$muted : #ddd
+
+
+// TYPES [colors]
+
+$success: #39ff5a //#63e205
+$error: #e20505
+$warnning: #d6b719
+$focus: #3cc3ab
+
+//  SIZES
+
+$normal: 14px
+$radius: 15px
+$indent: 1em
+
+//  SPACING
+
+$gap : 10px
+
+
+// MEDIA QUERIES
+
+$x-small: 360px
+$small: 400px
+$tablet: 768px
+$medium: 960px
+$desktop: 1280px  
+$big: 1440px
+
+
+//  EFFECTS
+
+$shadowLight : 2px 2px 5px rgba(0, 0, 0, 0.5)
+$transition: 0.5s all;
+
+
+//  MIXINS
+  
+@mixin mq($size) 
+  @media only screen and (max-width: $size)
+    @content
+
+@mixin mq-min($size) 
+  @media only screen and (min-width: $size)
+    @content
+

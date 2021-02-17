@@ -9,12 +9,15 @@ export default function InputField({
     onBlur,
     placeholder }) {
 
+    const hasError = touched && errors.length > 0;
+
     return (
-        <div className="form__input-field">
-            <label htmlFor={name}>
+        <div className="form__fieldbox">
+            <label htmlFor={name} className="form__label">
                 {children}
                 {required ? <span className='form__asterisk'>*</span> : null}
                 <input
+                    className={`form__input_text ${hasError ? 'form__input_text--error' : null}`}
                     name={name}
                     value={value}
                     onChange={onChange}

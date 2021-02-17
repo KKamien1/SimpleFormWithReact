@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { FormTask } from './tasks/form-task/FormTask';
-import './style.scss'
+import './tasks/scss/style.scss'
 
 function App() {
     return (

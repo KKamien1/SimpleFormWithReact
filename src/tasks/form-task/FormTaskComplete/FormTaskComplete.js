@@ -101,8 +101,9 @@ export class FormTaskComplete extends Component {
         return (
             <>
                 <form className='form' onSubmit={this.onSubmit} noValidate>
-                    <fieldset>
-                        <legend>Personal Info</legend>
+                    <fieldset className='form__fieldset'>
+                        <legend className='form__legend'>Personal Info</legend>
+
                         <InputField
                             field={username}
                             onChange={this.onChangeHandler}
@@ -129,8 +130,8 @@ export class FormTaskComplete extends Component {
 
                     </fieldset>
 
-                    <fieldset>
-                        <legend>User Management</legend>
+                    <fieldset className='form__fieldset'>
+                        <legend className='form__legend'>User Management</legend>
 
                         <CheckBox
                             field={usertype}
@@ -151,7 +152,7 @@ export class FormTaskComplete extends Component {
                             User Inactivity Date
                         </InputField>
                     </fieldset>
-                    <button disabled={disableButton}>Save</button>
+                    <button className='form__btn form__btn--primary' disabled={disableButton}>Save</button>
                 </form>
             </>
         );
