@@ -97,7 +97,8 @@ export class FormTaskComplete extends Component {
         }
     }
 
-    resetForm = () => {
+    resetForm = (event) => {
+        event.preventDefault();
         this.setState({ ...this.initialState });
     }
 
@@ -158,7 +159,8 @@ export class FormTaskComplete extends Component {
                             User Inactivity Date
                         </InputField>
                     </fieldset>
-                    <button className='form__btn form__btn--primary' disabled={disableButton}>Save</button>
+                    <button type='submit' className='form__btn form__btn--primary' disabled={disableButton}>Save</button>
+                    <button className='form__btn' onClick={this.resetForm}>Reset</button>
                 </form>
             </>
         );
