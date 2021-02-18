@@ -1,8 +1,8 @@
 
 import React, { Component } from 'react'
-// import PropTypes from 'prop-types'
 
 import { formTaskValidator } from '../utils/validator'
+import { saveUserForm } from './form-api'
 import InputField from '../components/InputField'
 import CheckBox from '../components/CheckBox'
 
@@ -11,6 +11,7 @@ export class FormTaskComplete extends Component {
     constructor(props) {
         super(props);
         this.validate = formTaskValidator(this.props);
+        this.saveUserForm = saveUserForm;
         this.state = {
             [username]: {
                 name: username,
@@ -55,6 +56,7 @@ export class FormTaskComplete extends Component {
 
     componentDidMount() {
         this.validateForm();
+        this.initialState = { ...this.state }
     }
 
     isUserTypeInactive = () => this.state['usertype'].value === 'Inactive' ? true : false;
@@ -72,8 +74,8 @@ export class FormTaskComplete extends Component {
 
     onSubmit = (event) => {
         event.preventDefault();
-        this.validateForm();
-        console.log('submit');
+        this.saveUserForm();
+        this.resetForm()
     }
 
     validateForm = () => {
@@ -93,6 +95,10 @@ export class FormTaskComplete extends Component {
             const { isValid, errors } = this.validate[inactivityDate]({ value: this.state[inactivityDate].value, required });
             this.setState((prevState) => ({ [inactivityDate]: { ...prevState[inactivityDate], errors, isValid, required } }))
         }
+    }
+
+    resetForm = () => {
+        this.setState({ ...this.initialState });
     }
 
     render() {
