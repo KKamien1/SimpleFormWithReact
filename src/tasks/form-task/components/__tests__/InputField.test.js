@@ -30,7 +30,7 @@ describe('InputField component', () => {
         expect(component.html()).toMatchSnapshot();
     })
     test('should display asterisk when field is required', () => {
-        const component = createShallowComponent({ required: true });
+        const component = createShallowComponent({ field: { required: true } });
         expect(component.find('.form__asterisk').length).toEqual(1);
     })
     test('should attach change handler', () => {

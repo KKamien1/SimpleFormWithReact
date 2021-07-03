@@ -3,9 +3,11 @@ import { shallow } from 'enzyme';
 
 import CheckBox from '../CheckBox';
 const defaultProps = {
-    name: 'usertype',
-    value: '',
-    required: false,
+    field: {
+        name: 'usertype',
+        value: '',
+        required: false,
+    },
     children: 'User type',
     options: [true, false],
     checked: false,
@@ -23,7 +25,7 @@ describe('CheckBox component', () => {
         expect(component.html()).toMatchSnapshot();
     })
     test('should display asterisk when field is required', () => {
-        const component = createShallowComponent({ required: true });
+        const component = createShallowComponent({ field: { required: true } });
         expect(component.find('.form__asterisk').length).toEqual(1);
     })
 })
